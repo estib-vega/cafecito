@@ -7,11 +7,11 @@ const cafeMetadataSchema = z.object({
   rating: z.number().min(0).max(5),
 });
 
-type CafeMetadata = z.infer<typeof cafeMetadataSchema>;
+export type CafeMetadata = z.infer<typeof cafeMetadataSchema>;
 
 export const createCafeSchema = cafeMetadataSchema.omit({ id: true });
 
-type CreateCafeData = z.infer<typeof createCafeSchema>;
+export type CreateCafeData = z.infer<typeof createCafeSchema>;
 
 const fakeCafes: CafeMetadata[] = [
   {
