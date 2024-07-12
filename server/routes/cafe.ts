@@ -8,9 +8,8 @@ import {
   getCafes,
 } from "../lib/cafe";
 
-const app = new Hono();
 
-app
+export const cafe = new Hono()
   .get("/", (c) => {
     const cafes = getCafes();
     return c.json({ cafes });
@@ -35,4 +34,3 @@ app
     return c.json({ message: "Cafe deleted", id: deletedCafe.id });
   });
 
-export default app;

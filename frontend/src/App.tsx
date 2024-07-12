@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Card,
   CardContent,
@@ -6,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import api from "@/lib/api";
 
 interface CafeCardProps {
   name: string;
@@ -31,11 +33,18 @@ const CafeCard = (props: CafeCardProps): JSX.Element => {
 };
 
 const CafeList = () => {
-  const cafes = [
-    { name: "Cafe 1", location: "Location 1", rating: 5 },
-    { name: "Cafe 2", location: "Location 2", rating: 4 },
-    { name: "Cafe 3", location: "Location 3", rating: 3 },
-  ];
+  const [cafes, setCafes] = React.useState<CafeCardProps[]>([]);
+
+  React.useEffect(() => {
+    async function fetchCafes() {
+      const response = await api.cafe.$get();
+      const data = await response.json();
+      setCafes(data.cafes);
+    }
+
+    fetchCafes();
+  }, []);
+
   return (
     <div className="flex-col items-center p-8 space-y-8">
       {cafes.map((cafe, index) => (
