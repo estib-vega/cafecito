@@ -17,7 +17,7 @@ interface CafeCardProps {
 
 const CafeCard = (props: CafeCardProps): JSX.Element => {
   return (
-    <Card>
+    <Card className="max-w-96 cursor-pointer hover:bg-slate-50 transition-colors animate-appear-up">
       <CardHeader>
         <CardTitle>{props.name}</CardTitle>
         <CardDescription>{props.location}</CardDescription>
