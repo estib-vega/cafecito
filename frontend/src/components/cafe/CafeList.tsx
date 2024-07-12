@@ -1,30 +1,26 @@
-import api from "@/lib/api";
+import Alert from "@/components/generic/Alert";
+import { useCafeList } from "@/components/hooks/cafeApi";
 import CafeCard, { CafeCardProps } from "./CafeCard";
-import { useQuery } from "@tanstack/react-query";
-
-async function fetchCafes() {
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-  const response = await api.cafe.$get();
-  if (!response.ok) {
-    throw new Error("Failed to fetch cafes");
-  }
-  const data = await response.json();
-
-  return data.cafes;
-}
+import SkeletonCafeCard from "./SkeletonCafeCard";
 
 const CafeList = () => {
-  const { isPending, error, data } = useQuery({
-    queryKey: ["cafes"],
-    queryFn: fetchCafes,
-  });
+  const { isPending, error, data } = useCafeList();
 
   if (isPending) {
-    return <p>Loading...</p>;
+    return (
+      <div className="flex-col items-center p-8 space-y-8">
+        <SkeletonCafeCard />
+        <SkeletonCafeCard />
+      </div>
+    );
   }
 
   if (error) {
-    return <p>Error: {error.message}</p>;
+    return (
+      <div className="flex-col items-center p-8 space-y-8">
+        <Alert type="error" title="Error" description={error.message} />
+      </div>
+    );
   }
 
   const cafes: CafeCardProps[] = data;
