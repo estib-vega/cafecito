@@ -33,7 +33,7 @@ const Link = (props: LinkProps): JSX.Element => {
   );
 };
 
-type CafeCardProps = CafeMetadata;
+export type CafeCardProps = CafeMetadata;
 
 const CafeCard = (props: CafeCardProps): JSX.Element => {
   return (
