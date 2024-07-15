@@ -7,6 +7,7 @@ import {
   findCafeById,
   getCafes,
 } from "../lib/cafe";
+import { createAPIError } from "../utils/errors";
 
 
 export const cafe = new Hono()
@@ -22,14 +23,14 @@ export const cafe = new Hono()
   .get("/:id{[0-9]+}", (c) => {
     const cafe = findCafeById(c.req.param("id"));
     if (!cafe) {
-      return c.notFound();
+      return c.json(createAPIError("Cafe not found"), 404);
     }
     return c.json({ cafe });
   })
   .delete("/:id{[0-9]+}", (c) => {
     const deletedCafe = deleteCafeById(c.req.param("id"));
     if (!deletedCafe) {
-      return c.notFound();
+      return c.json(createAPIError("Cafe not found"), 404);
     }
     return c.json({ message: "Cafe deleted", id: deletedCafe.id });
   });
