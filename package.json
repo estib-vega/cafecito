@@ -5,10 +5,15 @@
   "scripts": {
     "start": "bun server/index.ts",
     "dev": "bun --watch server/index.ts",
+    "lint": "eslint -c eslint.config.js --report-unused-disable-directives --max-warnings 0",
     "postinstall": "bunx --bun tsc --build"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@eslint/js": "^9.7.0",
+    "@types/bun": "latest",
+    "eslint": "9.x",
+    "globals": "^15.8.0",
+    "typescript-eslint": "^7.16.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
