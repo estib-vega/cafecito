@@ -27,7 +27,7 @@ const fakeCafes: CafeMetadata[] = [
     googleUrl: "https://maps.app.goo.gl/uQ6hf7tju2JXsy3X6",
     location: "Wilmersdorfer Str. 67, 10629 Berlin",
     imageUrl:
-      "https://lh3.googleusercontent.com/p/AF1QipOBOQd07B3uIexXxpq9DCcsMMhvIW4hTeX5yCxP=s680-w680-h510",
+      "https://www.impala-coffee.com/wp-content/uploads/Impala_Coffee_Wilmersdorfer_dokumentname_RGB_12.jpg",
     rating: 4.3,
   },
   {
@@ -37,7 +37,7 @@ const fakeCafes: CafeMetadata[] = [
     googleUrl: "https://maps.app.goo.gl/uJGv215QPiKX2kuQA",
     location: "Rosenthaler Str. 72A, 10119 Berlin",
     imageUrl:
-      "https://lh3.googleusercontent.com/p/AF1QipMNy25yYzCHTdNcRvxTs5u3nuq8YHC0_7O35hA=s1360-w1360-h1020-rw",
+      "https://img.zeit.de/entdecken/2017-06/st-oberholz-4/wide__822x462",
     rating: 3.8,
   },
 ];
