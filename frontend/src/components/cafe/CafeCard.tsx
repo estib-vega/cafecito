@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { CafeMetadata } from "@server/lib/cafe";
+import UserBadge from "../user/UserBadge";
 
 interface LinkProps {
   href: string;
@@ -51,10 +52,10 @@ const CafeCard = (props: CafeCardProps): JSX.Element => {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <p>⭐️ {props.rating}</p>
+        <UserBadge id={props.creatorId} />
       </CardContent>
       <CardFooter>
-        <p>user {props.creatorId}</p>
+        <p>⭐️ {props.rating}</p>
       </CardFooter>
     </Card>
   );

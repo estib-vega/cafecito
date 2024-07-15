@@ -1,10 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import api from "@/lib/api";
+import { unwrappAPIError } from "@/utils/errors";
 
 async function fetchCafes() {
   const response = await api.cafe.$get();
   if (!response.ok) {
-    throw new Error("Failed to fetch cafe list");
+    const data = await response.json();
+    const errorMessage = unwrappAPIError(data, "Failed to cafe list");
+    throw new Error(errorMessage);
   }
   const data = await response.json();
 
