@@ -6,6 +6,8 @@
     "start": "bun server/index.ts",
     "dev": "bun --watch server/index.ts",
     "lint": "eslint -c eslint.config.js --report-unused-disable-directives --max-warnings 0",
+    "typecheck": "tsc --noEmit",
+    "type:watch": "tsc --watch",
     "postinstall": "bunx --bun tsc --build"
   },
   "devDependencies": {
