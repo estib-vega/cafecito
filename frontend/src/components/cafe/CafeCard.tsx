@@ -1,4 +1,3 @@
-import { ExternalLink } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -9,36 +8,19 @@ import {
 } from "@/components/ui/card";
 import { CafeMetadata } from "@server/lib/cafe";
 import UserBadge from "../user/UserBadge";
-
-interface LinkProps {
-  href: string;
-  external?: boolean;
-  children: React.ReactNode;
-}
-
-const Link = (props: LinkProps): JSX.Element => {
-  return (
-    <>
-      <a
-        href={props.href}
-        target={props.external ? "_blank" : "_self"}
-        rel="noopener noreferrer"
-        className="underline"
-      >
-        {props.children}
-      </a>
-      {props.external && (
-        <ExternalLink className="inline ml-[2px] mb-[3px]" size={"1em"} />
-      )}
-    </>
-  );
-};
+import Link from "../generic/Link";
+import { useGotoCafe } from "../hooks/navigation";
 
 export type CafeCardProps = CafeMetadata;
 
 const CafeCard = (props: CafeCardProps): JSX.Element => {
+  const { n, prefetch } = useGotoCafe(props.id);
   return (
-    <Card className="max-w-96 cursor-pointer transition-colors animate-appear-up">
+    <Card
+      className="max-w-96 cursor-pointer transition-colors animate-appear-up"
+      onMouseEnter={prefetch}
+      onClick={n}
+    >
       <CardHeader>
         <div className="rounded overflow-hidden h-40">
           <img src={props.imageUrl} alt="" />
