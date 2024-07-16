@@ -8,6 +8,7 @@ const cafeMetadataSchema = z.object({
   creatorId: z.string().min(1),
   imageUrl: z.string(),
   googleUrl: z.string(),
+  infoId: z.string().min(1).optional(),
 });
 
 export type CafeMetadata = z.infer<typeof cafeMetadataSchema>;
@@ -29,6 +30,7 @@ const fakeCafes: CafeMetadata[] = [
     imageUrl:
       "https://www.impala-coffee.com/wp-content/uploads/Impala_Coffee_Wilmersdorfer_dokumentname_RGB_12.jpg",
     rating: 4.3,
+    infoId: "1",
   },
   {
     id: "2",
@@ -39,6 +41,7 @@ const fakeCafes: CafeMetadata[] = [
     imageUrl:
       "https://img.zeit.de/entdecken/2017-06/st-oberholz-4/wide__822x462",
     rating: 3.8,
+    infoId: "2",
   },
 ];
 
@@ -58,6 +61,18 @@ export function addCafe(cafeData: CreateCafeData): CafeMetadata {
 
 export function findCafeById(id: string): CafeMetadata | undefined {
   return fakeCafes.find((cafe) => cafe.id === id);
+}
+
+export function updateCafe(
+  id: string,
+  cafeData: CreateCafeData
+): CafeMetadata | undefined {
+  const cafe = findCafeById(id);
+  if (!cafe) {
+    return undefined;
+  }
+  Object.assign(cafe, cafeData);
+  return cafe;
 }
 
 export function deleteCafeById(id: string): CafeMetadata | undefined {
