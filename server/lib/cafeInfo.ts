@@ -6,17 +6,7 @@ const cafeInfoSchema = z.object({
   laptopFriendly: z.object({
     accepted: z.boolean(),
     days: z
-      .array(
-        z.enum([
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday",
-          "Sunday",
-        ])
-      )
+      .array(z.enum(["mon", "tue", "wed", "thu", "fri", "sat", "sun"]))
       .optional(),
   }),
   powerPlugs: z.boolean(),
@@ -34,7 +24,9 @@ const cafeInfoSchema = z.object({
 
 export type CafeInfo = z.infer<typeof cafeInfoSchema>;
 
-export const CAFE_INFO_ID_KEYS = ["id", "cafeId"] satisfies Array<keyof CafeInfo>;
+export const CAFE_INFO_ID_KEYS = ["id", "cafeId"] satisfies Array<
+  keyof CafeInfo
+>;
 
 type CafeInfoIdKeys = (typeof CAFE_INFO_ID_KEYS)[number];
 
@@ -59,7 +51,7 @@ const fakeCafeInfos: CafeInfo[] = [
     id: "1",
     laptopFriendly: {
       accepted: true,
-      days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      days: ["mon", "tue", "wed", "thu", "fri"],
     },
     powerPlugs: true,
     wifi: {
@@ -77,15 +69,7 @@ const fakeCafeInfos: CafeInfo[] = [
     id: "2",
     laptopFriendly: {
       accepted: true,
-      days: [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday",
-      ],
+      days: ["mon", "tue", "wed", "thu", "fri", "sat", "sun"],
     },
     powerPlugs: true,
     wifi: {
