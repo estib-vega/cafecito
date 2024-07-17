@@ -21,8 +21,10 @@ const CafeInfoHeader = (props: CafeInfoHeaderProps) => {
         <Link href={props.googleUrl} external>
           {props.location}
         </Link>
-        <UserBadge id={props.creatorId} />
-        <p>⭐️ {props.rating}</p>
+        <div className="flex w-full justify-between">
+          <p>⭐️ {props.rating}</p>
+          <UserBadge id={props.creatorId} />
+        </div>
       </div>
     </div>
   );

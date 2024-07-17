@@ -2,6 +2,8 @@ import { useCafeInfo } from "@/components/hooks/cafeApi";
 import CafeInfoAmenity from "./CafeInfoAmenity";
 import { CAFE_INFO_ID_KEYS, CafeAmenity, CafeInfo } from "@server/lib/cafeInfo";
 import { IconName } from "./CafeInfoIcon";
+import LaptopFriendly from "./amenityContent/LaptopFriendly";
+import Wifi from "./amenityContent/Wifi";
 
 function isAmenityKey(key: keyof CafeInfo): key is CafeAmenity {
   for (const idKey of CAFE_INFO_ID_KEYS) {
@@ -24,35 +26,11 @@ function getAmenityInformation(
   if (!isAmenityKey(key)) return null;
 
   switch (key) {
-    case "laptopFriendly": {
-      const iconName = "laptop";
-
-      if (!data.laptopFriendly.accepted) {
-        return {
-          iconName,
-          content: "Not laptops accepted",
-        };
-      }
-
-      if (data.laptopFriendly.days === undefined) {
-        return {
-          iconName,
-          content: "Laptops accepted",
-        };
-      }
-
-      if (data.laptopFriendly.days?.length === 7) {
-        return {
-          iconName,
-          content: "Laptops accepted everyday",
-        };
-      }
-
+    case "laptopFriendly":
       return {
-        iconName,
-        content: `Laptops accepted on ${data.laptopFriendly.days.join(", ")}`,
+        iconName: "laptop",
+        content: <LaptopFriendly laptopFriendly={data.laptopFriendly} />,
       };
-    }
     case "powerPlugs": {
       const iconName = "plug";
       return {
@@ -60,28 +38,11 @@ function getAmenityInformation(
         content: data.powerPlugs ? "Power plugs available" : "No power plugs",
       };
     }
-    case "wifi": {
-      const iconName = "wifi";
-
-      if (!data.wifi.available) {
-        return {
-          iconName,
-          content: "No wifi available",
-        };
-      }
-
-      if (data.wifi.password === undefined) {
-        return {
-          iconName,
-          content: "Wifi available",
-        };
-      }
-
+    case "wifi":
       return {
-        iconName,
-        content: `Wifi available with password: ${data.wifi.password}`,
+        iconName: "wifi",
+        content: <Wifi wifi={data.wifi} />,
       };
-    }
     case "places":
       return {
         iconName: "places",
@@ -95,17 +56,17 @@ function getAmenityInformation(
     case "cafeRating":
       return {
         iconName: "coffee",
-        content: `Cafe rating: ${data.cafeRating}`,
+        content: `Cafe rating: ⭐️ ${data.cafeRating}`,
       };
     case "foodRating":
       return {
         iconName: "food",
-        content: `Food rating: ${data.foodRating}`,
+        content: `Food rating: ⭐️ ${data.foodRating}`,
       };
     case "atmosphereRating":
       return {
         iconName: "atmosphere",
-        content: `Atmosphere rating: ${data.atmosphereRating}`,
+        content: `Atmosphere rating: ⭐️ ${data.atmosphereRating}`,
       };
   }
 }
@@ -147,7 +108,7 @@ const CafeInfoBody = (props: CafeInfoBodyProps) => {
   }
 
   return (
-    <div className="w-full flex flex-col items-start gap-2">
+    <div className="w-full flex flex-col items-start gap-2 animate-appear-up">
       <Amenities data={data} />
     </div>
   );

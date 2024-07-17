@@ -20,7 +20,7 @@ const CafePage = (props: CafePageProps) => {
 
   return (
     <ScrollArea type="scroll" className="h-full w-full">
-      <div className="container pt-8 flex flex-col items-center max-w-3xl">
+      <div className="container pt-8 flex flex-col items-center max-w-3xl gap-8">
         <CafeInfoHeader
           name={data.name}
           imageUrl={data.imageUrl}
