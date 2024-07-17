@@ -3,22 +3,27 @@ import type { ItemOf, NoUndefined } from "../utils/types";
 
 const cafeInfoSchema = z.object({
   id: z.string().min(1),
-  laptopFriendly: z.boolean(),
-  laptopFriendlyDays: z
-    .enum([
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-      "Sunday",
-    ])
-    .array()
-    .optional(),
+  laptopFriendly: z.object({
+    accepted: z.boolean(),
+    days: z
+      .array(
+        z.enum([
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday",
+        ])
+      )
+      .optional(),
+  }),
   powerPlugs: z.boolean(),
-  wifi: z.boolean(),
-  wifiPassword: z.string().optional(),
+  wifi: z.object({
+    available: z.boolean(),
+    password: z.string().min(1),
+  }),
   places: z.enum(["Indoor", "Outdoor", "Both"]),
   space: z.enum(["Small", "Medium", "Large"]),
   cafeRating: z.number().min(0).max(5),
@@ -29,8 +34,14 @@ const cafeInfoSchema = z.object({
 
 export type CafeInfo = z.infer<typeof cafeInfoSchema>;
 
+export const CAFE_INFO_ID_KEYS = ["id", "cafeId"] satisfies Array<keyof CafeInfo>;
+
+type CafeInfoIdKeys = (typeof CAFE_INFO_ID_KEYS)[number];
+
+export type CafeAmenity = keyof Omit<CafeInfo, CafeInfoIdKeys>;
+
 export type CafeLaptopFriendlyDays = ItemOf<
-  NoUndefined<CafeInfo["laptopFriendlyDays"]>
+  NoUndefined<CafeInfo["laptopFriendly"]["days"]>
 >;
 
 export type CafePlaces = CafeInfo["places"];
@@ -46,17 +57,15 @@ export type CreateCafeInfoData = z.infer<typeof createCafeInfoSchema>;
 const fakeCafeInfos: CafeInfo[] = [
   {
     id: "1",
-    laptopFriendly: true,
-    laptopFriendlyDays: [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-    ],
+    laptopFriendly: {
+      accepted: true,
+      days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    },
     powerPlugs: true,
-    wifi: true,
-    wifiPassword: "password",
+    wifi: {
+      available: true,
+      password: "password",
+    },
     places: "Indoor",
     space: "Medium",
     cafeRating: 4.3,
@@ -66,17 +75,23 @@ const fakeCafeInfos: CafeInfo[] = [
   },
   {
     id: "2",
-    laptopFriendly: true,
-    laptopFriendlyDays: [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-    ],
+    laptopFriendly: {
+      accepted: true,
+      days: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ],
+    },
     powerPlugs: true,
-    wifi: true,
-    wifiPassword: "password",
+    wifi: {
+      available: true,
+      password: "password",
+    },
     places: "Indoor",
     space: "Medium",
     cafeRating: 4.3,

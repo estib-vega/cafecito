@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import api from "@/lib/api";
 import { unwrappAPIError } from "@/utils/errors";
+import { CafeInfo } from "@server/lib/cafeInfo";
 
 async function fetchCafes() {
   const response = await api.cafe.$get();
@@ -51,7 +52,7 @@ export function useCafe(cafeId: string) {
   });
 }
 
-async function fetchCafeInfo(cafeInfoId: string) {
+async function fetchCafeInfo(cafeInfoId: string): Promise<CafeInfo> {
   const response = await api.cafe.info[":id{[0-9]+}"].$get({
     param: { id: cafeInfoId },
   });

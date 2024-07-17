@@ -8,7 +8,7 @@ interface LinkProps {
 
 const Link = (props: LinkProps): JSX.Element => {
   return (
-    <>
+    <span>
       <a
         href={props.href}
         target={props.external ? "_blank" : "_self"}
@@ -20,7 +20,7 @@ const Link = (props: LinkProps): JSX.Element => {
       {props.external && (
         <ExternalLink className="inline ml-[2px] mb-[3px]" size={"1em"} />
       )}
-    </>
+    </span>
   );
 };
 
