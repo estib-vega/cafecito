@@ -8,10 +8,13 @@ export const Route = createRootRoute({
         <h1 className="text-4xl font-bold">cafecito</h1>
         <nav className="flex gap-2">
           <Link to="/" className="[&.active]:font-bold">
-            Home
+            home
           </Link>{" "}
           <Link to="/about" className="[&.active]:font-bold">
-            About
+            about
+          </Link>
+          <Link to="/create" className="[&.active]:font-bold">
+            create
           </Link>
         </nav>
       </header>

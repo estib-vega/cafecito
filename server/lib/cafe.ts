@@ -2,12 +2,22 @@ import { z } from "zod";
 
 const cafeMetadataSchema = z.object({
   id: z.string().min(1),
-  name: z.string(),
-  location: z.string(),
-  rating: z.number().min(0).max(5),
+  name: z.string().min(1, {
+    message: "Username must be at least 1 character.",
+  }),
+  location: z.string().min(1, {
+    message: "Location can't be empty.",
+  }),
+  rating: z.coerce.number().min(0).max(5, {
+    message: "Rating must be between 0 and 5.",
+  }),
   creatorId: z.string().min(1),
-  imageUrl: z.string(),
-  googleUrl: z.string(),
+  imageUrl: z.string().url({ message: "Invalid URL" }).min(1, {
+    message: "Image URL can't be empty.",
+  }),
+  googleUrl: z.string().url({ message: "Invalid URL." }).min(1, {
+    message: "Google URL can't be empty.",
+  }),
   infoId: z.string().min(1).optional(),
 });
 
@@ -16,6 +26,7 @@ export type CafeMetadata = z.infer<typeof cafeMetadataSchema>;
 export const createCafeSchema = cafeMetadataSchema.omit({
   id: true,
   creatorId: true,
+  infoId: true,
 });
 
 export type CreateCafeData = z.infer<typeof createCafeSchema>;
