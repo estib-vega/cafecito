@@ -1,23 +1,9 @@
 import { useCafeInfo } from "@/components/hooks/cafeApi";
 import CafeInfoAmenity from "./CafeInfoAmenity";
-import { CAFE_INFO_ID_KEYS, CafeAmenity, CafeInfo } from "@server/lib/cafeInfo";
-import { IconName } from "./CafeInfoIcon";
+import { CafeInfo } from "@server/lib/cafeInfo";
 import LaptopFriendly from "./amenityContent/LaptopFriendly";
 import Wifi from "./amenityContent/Wifi";
-
-function isAmenityKey(key: keyof CafeInfo): key is CafeAmenity {
-  for (const idKey of CAFE_INFO_ID_KEYS) {
-    if (key === idKey) {
-      return false;
-    }
-  }
-  return true;
-}
-
-interface AmenityInfo {
-  iconName: IconName;
-  content: React.ReactNode;
-}
+import { AmenityInfo, isAmenityKey } from "./cafeInfoHelpers";
 
 function getAmenityInformation(
   key: keyof CafeInfo,
