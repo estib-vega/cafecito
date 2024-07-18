@@ -14,8 +14,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { entries } from "@/utils/object";
 import { cafeFormItems } from "./cafeFormHelpers";
+import { postCafe } from "@/lib/api";
+import { useGotoCafeDynamic } from "../hooks/navigation";
 
 const CafeForm = () => {
+  const n = useGotoCafeDynamic();
   const form = useForm<CreateCafeData>({
     resolver: zodResolver(createCafeSchema),
     defaultValues: {
@@ -27,8 +30,9 @@ const CafeForm = () => {
     },
   });
 
-  const onSubmit = (data: CreateCafeData) => {
-    console.log(data);
+  const onSubmit = async (data: CreateCafeData) => {
+    const cafe = await postCafe(data);
+    n(cafe.id);
   };
 
   return (
@@ -48,6 +52,7 @@ const CafeForm = () => {
                   <FormControl>
                     <Input
                       {...field}
+                      disabled={form.formState.isSubmitting}
                       placeholder={item.placeholder}
                       type={item.type}
                       min={item.min}
@@ -59,7 +64,9 @@ const CafeForm = () => {
               )}
             />
           ))}
-          <Button type="submit">create</Button>
+          <Button disabled={form.formState.isSubmitting} type="submit">
+            create
+          </Button>
         </form>
       </Form>
     </div>

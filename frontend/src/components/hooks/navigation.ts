@@ -33,3 +33,8 @@ export function useGotoCafe(cafeId: string): NavigationHook {
     },
   };
 }
+
+export function useGotoCafeDynamic(): (cafeId: string) => Promise<void> {
+  const n = useNavigate();
+  return (cafeId: string) => n({ to: "/cafe/$cafeId", params: { cafeId } });
+}

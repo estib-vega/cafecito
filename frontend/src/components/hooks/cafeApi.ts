@@ -1,19 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import api from "@/lib/api";
-import { unwrappAPIError } from "@/utils/errors";
-import { CafeInfo } from "@server/lib/cafeInfo";
-
-async function fetchCafes() {
-  const response = await api.cafe.$get();
-  if (!response.ok) {
-    const data = await response.json();
-    const errorMessage = unwrappAPIError(data, "Failed to cafe list");
-    throw new Error(errorMessage);
-  }
-  const data = await response.json();
-
-  return data.cafes;
-}
+import { fetchCafes, fetchCafe, fetchCafeInfo } from "@/lib/api";
 
 /**
  * Custom hook for fetching a list of cafes.
@@ -26,20 +12,6 @@ export function useCafeList() {
   });
 }
 
-async function fetchCafe(cafeId: string) {
-  const response = await api.cafe[":id{[0-9]+}"].$get({
-    param: { id: cafeId },
-  });
-  if (!response.ok) {
-    const data = await response.json();
-    const errorMessage = unwrappAPIError(data, "Failed to fetch cafe");
-    throw new Error(errorMessage);
-  }
-  const data = await response.json();
-
-  return data.cafe;
-}
-
 /**
  * Custom hook for fetching cafe data.
  * @param cafeId - The ID of the cafe to fetch.
@@ -50,20 +22,6 @@ export function useCafe(cafeId: string) {
     queryKey: ["cafe", cafeId],
     queryFn: () => fetchCafe(cafeId),
   });
-}
-
-async function fetchCafeInfo(cafeInfoId: string): Promise<CafeInfo> {
-  const response = await api.cafe.info[":id{[0-9]+}"].$get({
-    param: { id: cafeInfoId },
-  });
-  if (!response.ok) {
-    const data = await response.json();
-    const errorMessage = unwrappAPIError(data, "Failed to fetch cafe info");
-    throw new Error(errorMessage);
-  }
-  const data = await response.json();
-
-  return data.cafeInfo;
 }
 
 /**
