@@ -9,6 +9,26 @@ const client = hc<APIRoutes>("/");
 const api = client.api;
 
 // =======================================================================
+// AUTH API
+// =======================================================================
+
+/**
+ * Fetches the user data from the server.
+ * @returns A Promise that resolves to the user data.
+ * @throws An error if the request fails or the response is not successful.
+ */
+export async function fetchMe() {
+  const response = await api.auth.me.$get();
+  if (!response.ok) {
+    const data = await response.json();
+    const errorMessage = unwrappAPIError(data, "Failed to fetch user");
+    throw new Error(errorMessage);
+  }
+  const data = await response.json();
+  return data.user;
+}
+
+// =======================================================================
 // USER API
 // =======================================================================
 
