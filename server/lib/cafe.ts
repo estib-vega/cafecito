@@ -54,6 +54,16 @@ const fakeCafes: CafeMetadata[] = [
     rating: 3.8,
     infoId: "2",
   },
+  {
+    id: "3",
+    creatorId: "1",
+    name: "Plan Café - Plan C",
+    googleUrl: "https://maps.app.goo.gl/sNVJZWQAhwii2xxJ6",
+    location: "Planufer 92B, 10967 Berlin",
+    imageUrl:
+      "https://media-cdn.tripadvisor.com/media/photo-s/1b/1a/45/d3/plan-cafe-plan-c.jpg",
+    rating: 4.7,
+  },
 ];
 
 export function getCafes(): CafeMetadata[] {
